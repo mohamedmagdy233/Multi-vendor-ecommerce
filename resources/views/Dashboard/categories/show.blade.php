@@ -1,45 +1,84 @@
-@extends('layouts.dashboard')
+<!DOCTYPE html>
+<html lang="en">
+@include('Dashboard.layouts.head')
 
-@section('title', $category->name)
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 
-@section('breadcrumb')
-@parent
-<li class="breadcrumb-item active">Categories</li>
-<li class="breadcrumb-item active">{{ $category->name }}</li>
-@endsection
 
-@section('content')
+<div class="wrapper">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Store</th>
-            <th>Status</th>
-            <th>Created At</th>
-        </tr>
-    </thead>
-    <tbody>
-        @php
-            $products = $category->products()->with('store')->latest()->paginate(5);
-        @endphp
-        @forelse($products as $product)
-        <tr>
-            <td><img src="{{ asset('storage/' . $product->image) }}" alt="" height="50"></td>
-            <td>{{ $product->name }}</td>
-            <td>{{ $product->store->name }}</td>
-            <td>{{ $product->status }}</td>
-            <td>{{ $product->created_at }}</td>
-        </tr>
-        @empty
-        <tr>
-            <td colspan="5">No products defined.</td>
-        </tr>
-        @endforelse
-    </tbody>
-</table>
+    @include('Dashboard.layouts.loader')
 
-{{ $products->links() }}
 
-@endsection
+
+    @include('Dashboard.layouts.navbar')
+
+    @include('Dashboard.layouts.slider')
+
+
+
+
+
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+
+
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+
+                        <thead>
+                        <a  href="{{route('categories.create')}}" class="btn btn-info text-bold mr-2">Create Category</a>
+
+
+                        <tr>
+                            <th>#</th>
+                            <th>name</th>
+                            <th>store</th>
+                            <th>status</th>
+                            <th>created_at</th>
+                        </tr>
+                        </thead>
+
+
+                        <?php
+                        $products=$category->products()->with('store')->paginate(5)
+
+                        ?>
+                        <?php
+                        $i=0;
+                        $i++;
+                        ?>
+
+
+                        @forelse($products as $product)
+                            <tbody>
+                            <tr>
+                                <td>{{$i++}}</td>
+                                <td>{{$product->name}}</td>
+                                <td>{{$product->store->name}}</td>
+                                <td>{{ $product->status}}</td>
+                                <td>{{$product->created_at}}</td>
+
+
+                            </tr>
+
+                            </tbody>
+
+                        @empty
+                        @endforelse
+
+                    </table>
+                    {{$products->links()}}
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+@include('Dashboard.layouts.js')
+</body>
+</html>

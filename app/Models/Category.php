@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory ,SoftDeletes;
 
     protected $guarded=[];
 
@@ -35,5 +36,24 @@ class Category extends Model
                 'image', 'max:1048576', 'dimensions:min_width=100,min_height=100',
             ],
         ];
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'id');
+    }
+
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id', 'id')
+            ->withDefault([
+                'name' => 'main category'
+            ]);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id', 'id');
     }
 }

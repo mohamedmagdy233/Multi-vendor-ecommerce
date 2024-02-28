@@ -48,6 +48,8 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">name</label>
                                 <input type="text" name="name" class="form-control" value="{{old('name')}}" id="exampleInputEmail1" placeholder="Enter name">
+{{--                                <x-form.input type ="text" name="name" value =''/>--}}
+
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">description</label>
