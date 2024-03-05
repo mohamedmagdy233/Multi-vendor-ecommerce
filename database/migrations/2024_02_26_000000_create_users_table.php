@@ -21,6 +21,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone_number')->nullable()->unique();
+            $table->enum('type', ['user', 'admin', 'super-admin'])
+                ->default('user');
+            $table->timestamp('last_active_at')->nullable();
             $table->foreignId('store_id')->nullable()
                 ->constrained('stores')
                 ->nullOnDelete();

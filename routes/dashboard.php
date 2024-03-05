@@ -5,7 +5,10 @@ use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware'=>'auth'],function (){
+Route::group(
+    ['middleware'=>['auth','auth.type:admin,super-admin']],
+
+    function (){
 
     Route::get('/categories/trash',[CategoriesController::class,'trash'])->name('categories.trashed');
 Route::delete('/categories/{id}/force-delete', [CategoriesController::class,'forceDelete'])->name('categories.force-delete');

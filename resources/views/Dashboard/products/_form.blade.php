@@ -42,15 +42,17 @@
         <button type="submit" class="btn btn-primary">{{ $button_label ?? 'Save' }}</button>
     </div>
 
-@push('styles')
-<link href="{{ asset('css/tagify.css') }}" rel="stylesheet" type="text/css" />
-@endpush
+{{--@push('styles')--}}
+{{--    <link href="{{asset('css/tagify.css')}}" rel="stylesheet" type="text/css" />--}}
+{{--@endpush--}}
+    @include('Dashboard.layouts.head')
 
-@push('scripts')
-<script src="{{ asset('js/tagify.min.js') }}"></script>
-<script src="{{ asset('js/tagify.polyfills.min.js') }}"></script>
-<script>
-    var inputElm = document.querySelector('[name=tags]'),
-    tagify = new Tagify (inputElm);
-</script>
-@endpush
+    @include('Dashboard.layouts.js')
+{{--@push('scripts')--}}
+{{--    <script src="{{asset('js/tagify.js')}}"></script>--}}
+{{--    <script src="{{asset('js/tagify.polyfills.min.js')}}"></script>--}}
+{{--<script>--}}
+{{--    var inputElm = document.querySelector('[name=tags]')--}}
+{{--    tagify = new Tagify (inputElm);--}}
+{{--</script>--}}
+{{--@endpush--}}
